@@ -10,48 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_192524) do
-
-  create_table "drafts", force: :cascade do |t|
-    t.string "year"
-    t.integer "player_id"
-    t.integer "team_id"
-  end
-
-  create_table "flights", force: :cascade do |t|
-    t.integer "duration_in_minutes"
-    t.string "origin"
-    t.string "destination"
-    t.integer "plane_id"
-  end
-
-  create_table "passenger_flights", force: :cascade do |t|
-    t.integer "passenger_id"
-    t.integer "flight_id"
-  end
-
-  create_table "passengers", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "planes", force: :cascade do |t|
-    t.string "name"
-    t.integer "num_of_seats"
-  end
+ActiveRecord::Schema.define(version: 2020_03_25_170358) do
 
   create_table "players", force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.integer "draft_year"
-    t.integer "draft_num"
-    t.string "draft_team"
-    t.string "current_team"
+    t.integer "user_id"
+    t.integer "team_id"
+    t.string "player_name"
+    t.integer "goals"
+    t.integer "assists"
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.string "city"
-    t.string "stadium"
+    t.string "location"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
   end
 
 end

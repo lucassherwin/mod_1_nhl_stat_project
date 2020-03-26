@@ -1,4 +1,4 @@
 class Player < ActiveRecord::Base
-    has_many :drafts
-    has_many :teams, through: :drafts
+    belongs_to :user
+    belongs_to :team
 end
