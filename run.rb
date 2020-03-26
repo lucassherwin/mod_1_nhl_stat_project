@@ -128,6 +128,28 @@ def search_player(player_id, user)
     puts "Weight: #{parsed_data["people"][0]["weight"]}"
     puts "Position: #{parsed_data["people"][0]["primaryPosition"]["name"]}"
 
+    prompt = TTY::Prompt.new
+    choice = prompt.yes?("See advanced stats?")
+    if(choice == true)
+        puts "Please enter a season to see stats for in the format YYYY YYYY:"
+        input = gets.gsub(/\s+/, "")
+        advanced_unparsed_data = RestClient.get("https://statsapi.web.nhl.com/api/v1/people/8479325/stats?stats=statsSingleSeason&season=#{input}")
+        advanecd_parsed_data = JSON.parse(advanced_unparsed_data)
+
+        puts "Goals: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["goals"]}"
+        puts "Assists: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["assists"]}"
+        puts "Time On Ice: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["timeOnIce"]}"
+        puts "Shots: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["shots"]}"
+        puts "Games: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["games"]}"
+        puts "Penalty Minutes: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["pim"]}"
+        puts "Games: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["games"]}"
+        puts "Hits: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["hits"]}"
+        puts "Game Winning Goals: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["gameWinningGoals"]}"
+        puts "Overtime Goals: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["overTimeGoals"]}"
+        puts "Time On Ice Per Game: #{advanecd_parsed_data["stats"][0]["splits"][0]["stat"]["timeOnIcePerGame"]}"
+    end
+    
+
     main_prompt(user)
 end
 
@@ -256,6 +278,7 @@ def create_team(user)
 
     puts "Please enter a location for your team:"
     city_input = gets.chomp
+    #comment
 
     #save input to table
     team = Team.find_or_create_by(name: name_input, location: city_input)
@@ -264,7 +287,7 @@ def create_team(user)
     # player = add_player
     add_player(current_user)
 end
-
+#this is a comment
 def delete_last_player(user)
     # last_player = Player.select {|obj| obj.id == }
     puts "delete last player"
@@ -336,6 +359,7 @@ def main_options(user, input)
         create_team(current_user)
     end
 end
+
 def main_menu
 
     puts "Welcome please create a user to start"
@@ -343,15 +367,11 @@ def main_menu
 
     input = main_prompt(user)
 
-    # current_user = user
-
     main_options(user, input)
 end
 
 def run
     main_menu
 end
-
-
 
 run
