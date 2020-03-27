@@ -340,6 +340,7 @@ def main_prompt(user)
         opt.choice 'Search Draft Year'
         opt.choice 'Search Player'
         opt.choice 'Create Team'
+        opt.choice 'Quit'
     end
 
     current_user = user
@@ -357,6 +358,8 @@ def main_options(user, input)
         search_by_draft_year(current_user)
     elsif(input == "Create Team")
         create_team(current_user)
+    else
+        puts "Goodbye"
     end
 end
 
